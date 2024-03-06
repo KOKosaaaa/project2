@@ -8,3 +8,5 @@
 
 бот - https://t.me/Priser_kokos_bot
 репозиторий - https://github.com/KOKosaaaa/project228
+
+бот сейчас работает
