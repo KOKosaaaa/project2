@@ -7,6 +7,6 @@
 Пользовательские настройки, такие как изменение количества токенов для генерации ответа.
 
 бот - https://t.me/Priser_kokos_bot
-репозиторий - https://github.com/KOKosaaaa/project228
+репозиторий - https://github.com/KOKosaaaa/project2
 
 бот сейчас работает
