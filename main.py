@@ -8,6 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 last_generated_response = {}
 user_settings = {}
 log_file_path = "C:/Users/User/PycharmProjects/pythonProject6/pythonProject/перевод/error_logs.txt"
+user_messages_history = {}
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -29,6 +30,12 @@ def send_debug_logs(message):
             bot.reply_to(message, "Файл логов пуст или не существует.")
     else:
         bot.reply_to(message, "У вас нет доступа к этой команде.")
+
+@bot.message_handler(commands=['reset'])
+def reset_chat_history(message):
+    chat_id = message.chat.id
+    user_messages_history[chat_id] = []
+    bot.reply_to(message, "История чата очищена. Начните новый диалог.🤗")
 
 @bot.message_handler(func=lambda message: message.text == "Изменить количество токенов")
 def settings(message):
