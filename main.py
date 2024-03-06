@@ -3,10 +3,11 @@ from telebot import types
 from config import TOKEN
 import time
 from gpt import generate_response
-
+import os
 bot = telebot.TeleBot(TOKEN)
 last_generated_response = {}
 user_settings = {}
+log_file_path = "C:/Users/User/PycharmProjects/pythonProject6/pythonProject/перевод/error_logs.txt"
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -16,6 +17,18 @@ def send_welcome(message):
     buttons = [types.KeyboardButton(text) for text in ["Изменить количество токенов", "Продолжи", "Сбросить чат"]]
     markup.add(*buttons)
     bot.send_message(message.chat.id, welcome_text, reply_markup=markup)
+
+@bot.message_handler(commands=['debug'])
+def send_debug_logs(message):
+    allowed_users = ['KOKOS_uc']
+    if message.from_user.username in allowed_users:
+        if os.path.exists(log_file_path) and os.path.getsize(log_file_path) > 0:
+            with open(log_file_path, "rb") as file:
+                bot.send_document(message.chat.id, file)
+        else:
+            bot.reply_to(message, "Файл логов пуст или не существует.")
+    else:
+        bot.reply_to(message, "У вас нет доступа к этой команде.")
 
 @bot.message_handler(func=lambda message: message.text == "Изменить количество токенов")
 def settings(message):
